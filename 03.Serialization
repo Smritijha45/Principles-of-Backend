@@ -1,0 +1,178 @@
+# Serialization & Deserialization (Backend Notes)
+
+## What is Serialization?
+
+**Serialization** is the process of converting an object (data
+structure) into a format that can be: - Stored (file, database) -
+Transmitted (network, API)
+
+Common formats: - JSON - XML - BSON - Protocol Buffers
+
+### Example (JavaScript)
+
+``` js
+const user = {
+  name: "Smriti",
+  age: 20
+};
+
+// Serialize to JSON
+const jsonData = JSON.stringify(user);
+
+console.log(jsonData);
+// Output: {"name":"Smriti","age":20}
+```
+
+------------------------------------------------------------------------
+
+## What is Deserialization?
+
+**Deserialization** is the reverse process: Converting serialized data
+back into an object.
+
+### Example (JavaScript)
+
+``` js
+const jsonData = '{"name":"Smriti","age":20}';
+
+// Deserialize to object
+const user = JSON.parse(jsonData);
+
+console.log(user.name); // Smriti
+```
+
+------------------------------------------------------------------------
+
+## Why is Serialization Important?
+
+-   Data transfer between client and server (APIs)
+-   Storing objects in databases or files
+-   Caching data (Redis, etc.)
+-   Communication in microservices
+
+------------------------------------------------------------------------
+
+## Real-World Example (Backend Flow)
+
+1.  Client sends request (JSON)\
+2.  Backend deserializes JSON into object\
+3.  Backend processes logic\
+4.  Backend serializes response into JSON\
+5.  Client receives response
+
+------------------------------------------------------------------------
+
+## Serialization in Different Languages
+
+### JavaScript (Node.js)
+
+``` js
+JSON.stringify(obj); // Serialization
+JSON.parse(json);   // Deserialization
+```
+
+### Python
+
+``` python
+import json
+
+json_data = json.dumps(obj)   # Serialization
+obj = json.loads(json_data)   # Deserialization
+```
+
+### Java (Jackson Library)
+
+``` java
+ObjectMapper mapper = new ObjectMapper();
+
+// Serialization
+String json = mapper.writeValueAsString(obj);
+
+// Deserialization
+User user = mapper.readValue(json, User.class);
+```
+
+------------------------------------------------------------------------
+
+## Types of Serialization
+
+### 1. JSON Serialization
+
+-   Most common in web applications
+-   Human-readable
+
+### 2. XML Serialization
+
+-   Used in legacy systems
+-   Verbose format
+
+### 3. Binary Serialization
+
+-   Faster and compact
+-   Not human-readable
+
+### 4. Custom Serialization
+
+-   Developer-defined format
+-   Used in performance-critical systems
+
+------------------------------------------------------------------------
+
+## Advantages
+
+-   Easy data sharing across systems
+-   Language-independent communication
+-   Supports distributed systems
+
+------------------------------------------------------------------------
+
+## Disadvantages
+
+-   Performance overhead (especially JSON/XML)
+-   Security risks (data tampering)
+-   Versioning issues (structure changes)
+
+------------------------------------------------------------------------
+
+## Security Considerations
+
+-   Never trust incoming serialized data
+-   Validate and sanitize input
+-   Avoid insecure deserialization (can lead to attacks)
+-   Use trusted libraries for parsing
+
+------------------------------------------------------------------------
+
+## Common Interview Questions
+
+### Q1: Difference between Serialization and Deserialization?
+
+  Serialization              Deserialization
+  -------------------------- -----------------------------
+  Object to format           Format to object
+  Used for sending/storing   Used for reading/processing
+
+------------------------------------------------------------------------
+
+### Q2: Why JSON is preferred?
+
+-   Lightweight
+-   Easy to read and write
+-   Supported by almost all programming languages
+
+------------------------------------------------------------------------
+
+### Q3: What is insecure deserialization?
+
+When untrusted data is converted into objects, it can lead to: - Code
+execution attacks\
+- Data leaks
+
+------------------------------------------------------------------------
+
+## Summary
+
+-   Serialization converts object to transferable format\
+-   Deserialization converts format back to object\
+-   Essential for APIs and backend communication\
+-   JSON is the most widely used format
